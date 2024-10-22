@@ -1,32 +1,28 @@
 name: Run main.py on Dataset Update
 
-# Trigger this workflow on push events for specific files
 on:
   push:
     paths:
-      - 'src/House_Rent_Dataset.csv'  # Updated to the path of your dataset
+      - 'src/House_Rent_Dataset.csv'
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   run-main:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository containing the dataset and code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Python
       - name: Set up Python 3.x
         uses: actions/setup-python@v3
         with:
-          python-version: '3.x'  # Specify the version of Python you want to use
+          python-version: '3.x'
 
-      # Install dependencies
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt  # Ensure your requirements.txt is in the root directory or update the path
+          pip install -r requirements.txt
 
-      # Run the main.py script
       - name: Run main.py
         run: |
           python main.py
