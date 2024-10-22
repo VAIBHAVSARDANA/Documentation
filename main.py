@@ -4,14 +4,17 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error
 import numpy as np
 import joblib
-from src.data_processing import preprocess_data
+from src.data_processing import preprocess_data, general_cleaning
 from src.utils import save_model, load_model
 
 # Load dataset
 data = pd.read_csv('data/House_Rent_Dataset.csv')
 
-# Preprocess the data
-X, y = preprocess_data(data)
+# Perform general cleaning and save cleaned data for Power BI
+cleaned_data = general_cleaning(data)
+
+# Proceed with further preprocessing for model training
+X, y = preprocess_data(cleaned_data)
 
 # Split the data into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
