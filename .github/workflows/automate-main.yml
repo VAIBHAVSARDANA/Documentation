@@ -1,0 +1,28 @@
+name: Run main.py on Dataset Update
+
+on:
+  push:
+    paths:
+      - 'src/House_Rent_Dataset.csv'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  run-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run main.py
+        run: |
+          python main.py
